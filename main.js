@@ -31,7 +31,39 @@ const products = [
         price: 179.99,
         image: "images (2).jpg",
         description: "Maximum performance for serious athletes."
-    }
+    },
+    {
+        id: 5,
+        name: "Performance Boost Max",
+        category: "Athletic",
+        price: 179.99,
+        image: "images (3).jpg",
+        description: "Maximum performance for serious athletes."
+    },
+    {
+        id: 6,
+        name: "Performance Boost Max",
+        category: "Athletic",
+        price: 179.99,
+        image: "images (4).jpg",
+        description: "Maximum performance for serious athletes."
+    },
+    {
+        id: 6,
+        name: "Performance Boost Max",
+        category: "Athletic",
+        price: 179.99,
+        image: "pp (1).jpg",
+        description: "Maximum performance for serious athletes."
+    },
+    {
+        id: 7,
+        name: "Performance Boost Max",
+        category: "Athletic",
+        price: 179.99,
+        image: "pp (2).jpg",
+        description: "Maximum performance for serious athletes."
+    },
 ];
 
 // Store products in localStorage for access from detail page
