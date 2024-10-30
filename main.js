@@ -82,7 +82,6 @@ function renderProducts() {
                 <h3 class="product-title">${product.name}</h3>
                 <p class="product-category">${product.category}</p>
                 <p class="product-price">$${product.price}</p>
-                
             </div>
         </div>
     `).join('');
