@@ -12,6 +12,41 @@ function updateCartCount() {
     cartCount.textContent = cartItems.length;
 }
 
+// Add to cart functionality
+function addToCart() {
+    const selectedSize = document.querySelector('.size-btn.selected');
+    if (!selectedSize) {
+        alert('Please select a size before adding to cart');
+        return;
+    }
+
+    const product = getCurrentProduct();
+    const quantity = parseInt(document.getElementById('quantity').value);
+    
+    const cartItem = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        size: selectedSize.textContent,
+        quantity: quantity,
+        image: product.image
+    };
+
+    cartItems.push(cartItem);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    updateCartCount();
+
+    // Add animation to cart icon
+    const cartIcon = document.querySelector('.cart-icon');
+    cartIcon.style.transform = 'scale(1.2)';
+    setTimeout(() => {
+        cartIcon.style.transform = 'scale(1)';
+    }, 200);
+
+    // Show success message
+    alert('Product added to cart successfully!');
+}
+
 // Modal handling
 function openModal() {
     const modal = document.getElementById('order-modal');
@@ -133,6 +168,9 @@ function initProductDetail() {
         });
     });
 
+    // Set up add to cart button
+    document.getElementById('add-to-cart-detail').addEventListener('click', addToCart);
+
     // Set up order button
     document.getElementById('order-now').addEventListener('click', () => {
         const selectedSize = document.querySelector('.size-btn.selected');
@@ -163,48 +201,3 @@ document.addEventListener('DOMContentLoaded', () => {
     initProductDetail();
     updateCartCount();
 });
-///////////
-// Store products in localStorage for access from detail page
-localStorage.setItem('products', JSON.stringify(products));
-
-// Shopping cart
-let cartItemss = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-// Render products with click handling
-function renderProducts() {
-    const productGrid = document.getElementById('products');
-    productGrid.innerHTML = products.map(product => `
-        <div class="product-card" onclick="navigateToProduct(${product.id})">
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-            <div class="product-info">
-                <h3 class="product-title">${product.name}</h3>
-                <p class="product-category">${product.category}</p>
-                <p class="product-price">$${product.price}</p>
-                <button class="add-to-cart" onclick="addToCart(${product.id}); event.stopPropagation();">
-                    Add to Cart
-                </button>
-            </div>
-        </div>
-    `).join('');
-}
-
-// Navigate to product detail page
-function navigateToProduct(productId) {
-    // Store current product in localStorage
-    const product = products.find(p => p.id === productId);
-    localStorage.setItem('currentProduct', JSON.stringify(product));
-    window.location.href = `product-detail.html?id=${productId}`;
-}
-
-// Add to cart functionality
-function addToCart(productId) {
-    cartItems.push(productId);
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    updateCartCount();
-    // Add animation to cart icon
-    const cartIcon = document.querySelector('.cart-icon');
-    cartIcon.style.transform = 'scale(1.2)';
-    setTimeout(() => {
-        cartIcon.style.transform = 'scale(1)';
-    }, 200);
-}
